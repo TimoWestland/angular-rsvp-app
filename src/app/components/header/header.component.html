@@ -1,0 +1,23 @@
+<header id="header" class="header">
+  <div class="header-page bg-primary">
+    <a class="toggle-offcanvas bg-primary"
+       (click)="toggleNav()">
+      <span></span>
+    </a>
+    <h1 class="header-page-site-title">
+      <a routerLink="/">RSVP</a>
+    </h1>
+  </div>
+
+  <nav id="nav" class="nav">
+    <ul class="nav-list">
+      <li>
+        <a routerLink="/"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }">
+          Events
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

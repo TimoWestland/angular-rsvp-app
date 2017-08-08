@@ -1,0 +1,30 @@
+@import '~assets/scss/partials/layout.vars';
+@import '~assets/scss/partials/responsive.partial';
+
+.layout-overflow {
+  overflow: hidden; /* necessary to handle offcanvas scrollbar behavior */
+}
+
+.layout-canvas {
+  background: #FFFFFF;
+  backface-visibility: hidden;
+  position: relative;
+  left: 0;
+  transition: transform 250ms ease;
+  transform: translate3d(0, 0, 0);
+  width: 100%;
+
+  &.nav-open {
+    transform: translate3d(270px, 0, 0);
+  }
+}
+
+.layout-view {
+  padding: $padding-screen-small;
+
+  @include breakpoint($large) {
+    margin: 0 auto;
+    max-width: 960px;
+    padding: $padding-screen-large;
+  }
+}
