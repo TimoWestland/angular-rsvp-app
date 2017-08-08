@@ -9,6 +9,7 @@ import {
   Router
 } from '@angular/router';
 import 'rxjs/add/operator/filter';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,8 @@ export class HeaderComponent implements OnInit {
 
   @Output() navToggled = new EventEmitter<boolean>();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              public auth: AuthService) { }
 
   ngOnInit() {
     this.router.events

@@ -98,7 +98,7 @@
   margin-bottom: 10px;
   position: relative;
 
-  &-siteTitle {
+  &-site-title {
     font-size: 30px;
     line-height: 50px;
     margin: 0;
@@ -107,8 +107,23 @@
     top: 0;
     width: 100%;
   }
+
   a {
     color: #FFFFFF;
     text-decoration: none;
+  }
+
+  &-auth-status {
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 50px;
+    padding: 0 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    a:hover {
+      text-decoration: underline;
+    }
   }
 }

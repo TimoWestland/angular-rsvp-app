@@ -3,6 +3,7 @@ import {
   OnInit
 } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,11 @@ export class AppComponent implements OnInit {
   navOpen: boolean;
   minHeight: string;
   private _initWinHeight = 0;
+
+  constructor(private auth: AuthService) {
+    // check for authentication and handle if has present
+    auth.handleAuth();
+  }
 
   ngOnInit() {
     Observable.fromEvent(window, 'resize')

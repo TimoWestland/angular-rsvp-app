@@ -7,6 +7,13 @@
     <h1 class="header-page-site-title">
       <a routerLink="/">RSVP</a>
     </h1>
+
+    <div class="header-page-auth-status">
+      <a *ngIf="!auth.loggedIn" (click)="auth.login()">Log In</a>
+      <span *ngIf="auth.loggedIn">
+        {{ auth.userProfile?.name }} <span class="opacity-half">|</span> <a (click)="auth.logout()">Log Out</a>
+      </span>
+    </div>
   </div>
 
   <nav id="nav" class="nav">
