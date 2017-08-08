@@ -14,16 +14,16 @@ mongoose.connect(config.MONGO_URI, { useMongoClient: true });
 const monDb = mongoose.connection;
 
 monDb.on('error', function() {
-  console.error('MongoDB Connection Error. Please make sure that ', config.MONGO_URI, ' is running');
+  console.error('MongoDB Connection Error. Please make sure that', config.MONGO_URI, ' is running');
 });
 
 monDb.once('open', function() {
-  console.info('Connected to MongoDb ', config.MONGO_URI);
+  console.info('Connected to MongoDb', config.MONGO_URI);
 });
 
 
 /**
- * APP
+ * App
  */
 const app = express();
 
