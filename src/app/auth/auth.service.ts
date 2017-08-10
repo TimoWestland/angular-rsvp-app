@@ -5,7 +5,6 @@ import { AUTH_CONFIG } from './auth.config';
 import * as auth0 from 'auth0-js';
 
 // Avoid name not found warnings
-// noinspection ES6ConvertVarToLetConst
 declare var auth0: any;
 
 @Injectable()
@@ -20,7 +19,7 @@ export class AuthService {
     scope: AUTH_CONFIG.SCOPE
   });
   userProfile: any;
-  // Create a stream of logged in status to communicate throughout the app
+  // Create a stream of logged in status to communicate throughout app
   loggedIn: boolean;
   loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
@@ -40,7 +39,7 @@ export class AuthService {
   }
 
   setLoggedIn(value: boolean) {
-    // Update login status object
+    // Update login status subject
     this.loggedIn$.next(value);
     this.loggedIn = value;
   }
@@ -88,7 +87,7 @@ export class AuthService {
   }
 
   logout() {
-    // Ensure all auth items are removed from localStorage
+    // Ensure all auth items removed from localStorage
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
@@ -101,10 +100,10 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  // noinspection JSMethodCanBeStatic
   get tokenValid(): boolean {
     // Check if current time is past access token's expiration
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return Date.now() < expiresAt;
   }
+
 }
