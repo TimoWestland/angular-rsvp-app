@@ -16,7 +16,7 @@ module.exports = function(app, config) {
       jwksUri: `https://${config.AUTH0_DOMAIN}/.well-known/jwks.json`
     }),
     aud: config.AUTH0_API_AUDIENCE,
-    issuer: `https://${config.AUTH0_DOMAIN}`,
+    issuer: `https://${config.AUTH0_DOMAIN}/`,
     algorithm: 'RS256'
   });
 
@@ -52,7 +52,7 @@ module.exports = function(app, config) {
         if (events) {
           events.forEach(event => {
             eventsArr.push(event);
-          })
+          });
         }
         res.send(eventsArr);
       }
@@ -62,20 +62,21 @@ module.exports = function(app, config) {
   // Get list of all events, public and private (admin only)
   app.get('/api/events/admin', jwtCheck, adminCheck, (req, res) => {
     Event.find({}, _eventListProjection, (err, events) => {
-      let eventsArr = [];
-      if (err) {
-        return res.status(500).send({ message: err.message });
+        let eventsArr = [];
+        if (err) {
+          return res.status(500).send({ message: err.message });
+        }
+        if (events) {
+          events.forEach(event => {
+            eventsArr.push(event);
+          });
+        }
+        res.send(eventsArr);
       }
-      if (events) {
-        events.forEach(event => {
-          eventsArr.push(event);
-        })
-      }
-      res.send(eventsArr);
-    });
+    );
   });
 
-  // Get a specific event by ID
+  // Get an event by event ID
   app.get('/api/event/:id', jwtCheck, (req, res) => {
     Event.findById(req.params.id, (err, event) => {
       if (err) {
@@ -85,22 +86,22 @@ module.exports = function(app, config) {
         return res.status(400).send({ message: 'Event not found.' });
       }
       res.send(event);
-    })
+    });
   });
 
   // Get RSVPs by event ID
   app.get('/api/event/:eventId/rsvps', jwtCheck, (req, res) => {
     Rsvp.find({ eventId: req.params.eventId }, (err, rsvps) => {
-      let rsvpArr = [];
+      let rsvpsArr = [];
       if (err) {
         return res.status(500).send({ message: err.message });
       }
       if (rsvps) {
         rsvps.forEach(rsvp => {
-          rsvpArr.push(rsvp);
+          rsvpsArr.push(rsvp);
         });
       }
-      res.send(rsvpArr);
+      res.send(rsvpsArr);
     });
   });
 

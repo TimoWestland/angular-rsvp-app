@@ -7,20 +7,18 @@
 
       <!-- Search events -->
       <section class="search input-group mb-3">
-        <label for="search" class="input-group-addon">Search</label>
+        <label class="input-group-addon" for="search">Search</label>
         <input
           id="search"
           type="text"
           class="form-control"
           [(ngModel)]="query"
-          (keyup)="searchEvents()">
+          (keyup)="searchEvents()"/>
         <span class="input-group-btn">
           <button
             class="btn btn-danger"
             (click)="resetQuery()"
-            [disabled]="!query">
-            &times;
-          </button>
+            [disabled]="!query">&times;</button>
         </span>
       </section>
 
@@ -32,7 +30,7 @@
       <!-- Events listing -->
       <section class="list-group">
         <a
-          *ngFor="let events of fs.orderByDate()"
+          *ngFor="let event of fs.orderByDate(filteredEvents, 'startDatetime')"
           [routerLink]="['/event', event._id]"
           class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
