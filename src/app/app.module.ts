@@ -5,6 +5,7 @@ import {
 import { NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth/auth.service';
 import { ApiService } from './core/api.service';
@@ -30,6 +31,7 @@ import { LoadingComponent } from './core/loading.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [
     Title,
