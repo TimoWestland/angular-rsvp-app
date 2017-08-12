@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth/auth.service';
 import { ApiService } from './core/api.service';
 import { UtilsService } from './core/utils.service';
+import { FilterSortService } from './core/filter-sort.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -32,10 +33,11 @@ import { LoadingComponent } from './core/loading.component';
   ],
   providers: [
     Title,
+    DatePipe,
     AuthService,
     ApiService,
-    DatePipe,
-    UtilsService
+    UtilsService,
+    FilterSortService,
   ],
   bootstrap: [AppComponent]
 })
