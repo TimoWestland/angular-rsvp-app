@@ -8,6 +8,7 @@ import { CallbackComponent } from './pages/callback/callback.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AdminGuard } from './auth/admin.guard';
 import { AdminComponent } from './pages/admin/admin.component';
+import { EventComponent } from './pages/event/event.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,13 @@ const routes: Routes = [
         path: '',
         component: AdminComponent
       }
+    ]
+  },
+  {
+    path: 'event/:id',
+    component: EventComponent,
+    canActivate: [
+      AuthGuard
     ]
   },
   {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { current } from 'codelyzer/util/syntaxKind';
 
 @Injectable()
 export class UtilsService {
@@ -43,5 +44,10 @@ export class UtilsService {
     const now = new Date();
     const then = new Date(eventEnd.toString());
     return now >= then;
+  }
+
+  tabIs(currentTab: string, tab: string): boolean {
+    // Check if current tab is tab name
+    return currentTab === tab;
   }
 }
