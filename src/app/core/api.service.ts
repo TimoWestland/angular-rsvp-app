@@ -32,7 +32,7 @@ export class ApiService {
   // GET all events - private and public (admin only)
   getAdminEvents$(): Observable<EventModel[]> {
     return this.http
-      .get(`${ENV.BASE_API}event/admin`, {
+      .get(`${ENV.BASE_API}events/admin`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);

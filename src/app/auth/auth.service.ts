@@ -65,7 +65,6 @@ export class AuthService {
         this.router.navigate(['/']);
         console.error(`Error authenticating: ${err.error}`);
       }
-      this.router.navigate(['/']);
     });
   }
 
@@ -103,7 +102,7 @@ export class AuthService {
   }
 
   private _checkAdmin(profile) {
-    // check if the user has admin role
+    // Check if the user has admin role
     const roles = profile[AUTH_CONFIG.NAMESPACE] || [];
     return roles.indexOf('admin') > -1;
   }

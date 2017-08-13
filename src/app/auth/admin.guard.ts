@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
-  CanActivate,
-  Router
+  Router,
+  CanActivate
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
@@ -19,4 +19,5 @@ export class AdminGuard implements CanActivate {
     this.router.navigate(['/']);
     return false;
   }
+
 }

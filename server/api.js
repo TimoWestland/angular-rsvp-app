@@ -3,10 +3,11 @@ const jwks = require('jwks-rsa');
 const Event = require('./models/Event');
 const Rsvp = require('./models/Rsvp');
 
-
 module.exports = function(app, config) {
-  /**
-   * Authentication Middleware
+  /*
+   |--------------------------------------
+   | Authentication Middleware
+   |--------------------------------------
    */
   const jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
@@ -30,16 +31,17 @@ module.exports = function(app, config) {
     }
   };
 
-  // API routes
+  /*
+   |--------------------------------------
+   | API Routes
+   |--------------------------------------
+   */
+  const _eventListProjection = 'title startDatetime endDatetime viewPublic';
+
+  // GET API root
   app.get('/api/', (req, res) => {
     res.send('API works');
   });
-
-
-  /**
-   * API routes
-   */
-  const _eventListProjection = 'title startDatetime endDatetime viewPublic';
 
   // GET list of public events starting in the future
   app.get('/api/events', (req, res) => {
@@ -59,7 +61,7 @@ module.exports = function(app, config) {
     );
   });
 
-  // Get list of all events, public and private (admin only)
+  // GET list of all events, public and private (admin only)
   app.get('/api/events/admin', jwtCheck, adminCheck, (req, res) => {
     Event.find({}, _eventListProjection, (err, events) => {
         let eventsArr = [];
@@ -76,7 +78,7 @@ module.exports = function(app, config) {
     );
   });
 
-  // Get an event by event ID
+  // GET event by event ID
   app.get('/api/event/:id', jwtCheck, (req, res) => {
     Event.findById(req.params.id, (err, event) => {
       if (err) {
@@ -89,7 +91,7 @@ module.exports = function(app, config) {
     });
   });
 
-  // Get RSVPs by event ID
+  // GET RSVPs by event ID
   app.get('/api/event/:eventId/rsvps', jwtCheck, (req, res) => {
     Rsvp.find({ eventId: req.params.eventId }, (err, rsvps) => {
       let rsvpsArr = [];
