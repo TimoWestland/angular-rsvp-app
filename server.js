@@ -4,27 +4,32 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const cors = require('cors');
+// Config
 const config = require('./server/config');
 
-
-/**
- * MongoDB
+/*
+ |--------------------------------------
+ | MongoDB
+ |--------------------------------------
  */
+
 mongoose.connect(config.MONGO_URI, { useMongoClient: true });
 const monDb = mongoose.connection;
 
 monDb.on('error', function() {
-  console.error('MongoDB Connection Error. Please make sure that', config.MONGO_URI, ' is running');
+  console.error('MongoDB Connection Error. Please make sure that', config.MONGO_URI, 'is running.');
 });
 
-monDb.once('open', function() {
-  console.info('Connected to MongoDb', config.MONGO_URI);
+monDb.once('open', function callback() {
+  console.info('Connected to MongoDB:', config.MONGO_URI);
 });
 
-
-/**
- * App
+/*
+ |--------------------------------------
+ | App
+ |--------------------------------------
  */
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -42,13 +47,15 @@ if (process.env.NODE_ENV !== 'dev') {
   app.use('/', express.static(path.join(__dirname, './dist')));
 }
 
-
-/**
- * Routes
+/*
+ |--------------------------------------
+ | Routes
+ |--------------------------------------
  */
+
 require('./server/api')(app, config);
 
-// Pass routing to the Angular app
+// Pass routing to Angular app
 // Don't run in dev
 if (process.env.NODE_ENV !== 'dev') {
   app.get('*', function(req, res) {
@@ -56,8 +63,10 @@ if (process.env.NODE_ENV !== 'dev') {
   });
 }
 
-
-/**
- * Server
+/*
+ |--------------------------------------
+ | Server
+ |--------------------------------------
  */
+
 app.listen(port, () => console.log(`Server running on localhost:${port}`));
