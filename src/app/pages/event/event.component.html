@@ -14,18 +14,20 @@
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
-            <a
-              class="nav-link"
-              [routerLink]="[]"
-              [queryParams]="{tab: 'details'}"
-              [ngClass]="{'active': utils.tabIs(tab, 'details')}">Details</a>
+            <a class="nav-link"
+               [routerLink]="[]"
+               [queryParams]="{tab: 'details'}"
+               [ngClass]="{'active': utils.tabIs(tab, 'details')}">
+              Details
+            </a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link"
-              [routerLink]="[]"
-              [queryParams]="{tab: 'rsvp'}"
-              [ngClass]="{'active': utils.tabIs(tab, 'rsvp')}">RSVP</a>
+            <a class="nav-link"
+               [routerLink]="[]"
+               [queryParams]="{tab: 'rsvp'}"
+               [ngClass]="{'active': utils.tabIs(tab, 'rsvp')}">
+              RSVP
+            </a>
           </li>
         </ul>
       </div>
@@ -33,11 +35,15 @@
       <!-- Event detail tab -->
       <app-event-detail
         *ngIf="utils.tabIs(tab, 'details')"
-        [event]="event"></app-event-detail>
+        [event]="event">
+      </app-event-detail>
 
       <!-- Event RSVP tab -->
       <app-rsvp
-        *ngIf="utils.tabIs(tab, 'rsvp')"></app-rsvp>
+        *ngIf="utils.tabIs(tab, 'rsvp')"
+        [eventId]="event._id"
+        [eventPast]="eventPast">
+      </app-rsvp>
     </div>
   </ng-template>
 

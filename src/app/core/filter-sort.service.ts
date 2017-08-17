@@ -17,6 +17,23 @@ export class FilterSortService {
     return check;
   }
 
+  filter(array: any[], property: string, value: any) {
+    // Return only items with specific key/value pair
+    if (!property || value === undefined || !this._objArrayCheck(array)) {
+      return array;
+    }
+    const filteredArray = array.filter(item => {
+      for (const key in item) {
+        if (item.hasOwnProperty(key)) {
+          if (key === property && item[key] === value) {
+            return true;
+          }
+        }
+      }
+    });
+    return filteredArray;
+  }
+
   search(array: any[], query: string, excludeProps?: string | string[], dateFormat?: string) {
     // Match query to strings and Date objects / ISO UTC strings
     // Optionally exclude properties from being searched
@@ -34,17 +51,17 @@ export class FilterSortService {
             const thisVal = item[key];
             if (
               // Value is a string and NOT a UTC date
-              typeof thisVal === 'string' &&
-              !thisVal.match(isoDateRegex) &&
-              thisVal.toLowerCase().indexOf(lQuery) !== -1
+            typeof thisVal === 'string' &&
+            !thisVal.match(isoDateRegex) &&
+            thisVal.toLowerCase().indexOf(lQuery) !== -1
             ) {
               return true;
             } else if (
               // Value is a Date object or UTC string
-              (thisVal instanceof Date || thisVal.toString().match(isoDateRegex)) &&
-              // https://angular.io/api/common/DatePipe
-              // Matching date format string passed in as param (or default to 'medium')
-              this.datePipe.transform(thisVal, dateF).toLowerCase().indexOf(lQuery) !== -1
+            (thisVal instanceof Date || thisVal.toString().match(isoDateRegex)) &&
+            // https://angular.io/api/common/DatePipe
+            // Matching date format string passed in as param (or default to 'medium')
+            this.datePipe.transform(thisVal, dateF).toLowerCase().indexOf(lQuery) !== -1
             ) {
               return true;
             }
