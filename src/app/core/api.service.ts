@@ -25,14 +25,14 @@ export class ApiService {
   // GET list of public, future events
   getEvents$(): Observable<EventModel[]> {
     return this.http
-      .get(`${ENV.BASE_API}events`)
+      .get(`${ENV.BASE_API}/events`)
       .catch(this._handleError);
   }
 
   // GET all events - private and public (admin only)
   getAdminEvents$(): Observable<EventModel[]> {
     return this.http
-      .get(`${ENV.BASE_API}events/admin`, {
+      .get(`${ENV.BASE_API}/events/admin`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
@@ -41,7 +41,7 @@ export class ApiService {
   // Get an event by ID (login required)
   getEventById$(id: string): Observable<EventModel> {
     return this.http
-      .get(`${ENV.BASE_API}event/${id}`, {
+      .get(`${ENV.BASE_API}/event/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
@@ -50,8 +50,26 @@ export class ApiService {
   // Get RSVPs by event ID (login required)
   getRsvpsByEventId$(eventId: string): Observable<RsvpModel[]> {
     return this.http
-      .get(`${ENV.BASE_API}event/${eventId}/rsvps`, {
+      .get(`${ENV.BASE_API}/event/${eventId}/rsvps`, {
         headers: new HttpHeaders().set(`Authorization`, this._authHeader)
+      })
+      .catch(this._handleError);
+  }
+
+  // Post RSVP (login required)
+  postRsvp$(rsvp: RsvpModel): Observable<RsvpModel> {
+    return this.http
+      .post(`${ENV.BASE_API}/rsvp/new`, rsvp, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .catch(this._handleError);
+  }
+
+  // PUT existing RSVP (login required)
+  editRsvp$(id: string, rsvp: RsvpModel): Observable<RsvpModel> {
+    return this.http
+      .put(`${ENV.BASE_API}/rsvp/${id}`, rsvp, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
