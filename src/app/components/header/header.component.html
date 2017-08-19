@@ -21,17 +21,18 @@
       <li>
         <a routerLink="/"
            routerLinkActive="active"
-           [routerLinkActiveOptions]="{ exact: true }">
-          Events
-        </a>
+           [routerLinkActiveOptions]="{ exact: true }">Events</a>
       </li>
       <li>
         <a *ngIf="auth.loggedIn && auth.isAdmin"
            routerLink="/admin"
            routerLinkActive="active"
-           [routerLinkActiveOptions]="{ exact: true }">
-          Admin
-        </a>
+           [routerLinkActiveOptions]="{ exact: true }">Admin</a>
+      </li>
+      <li>
+        <a *ngIf="auth.loggedIn && auth.isAdmin"
+           routerLink="/admin/event/new"
+           routerLinkActive="active">Create Event</a>
       </li>
     </ul>
   </nav>

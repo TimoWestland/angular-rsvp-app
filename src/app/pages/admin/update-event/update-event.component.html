@@ -1,3 +1,15 @@
-<p>
-  update-event works!
-</p>
+<h1 class="text-center">{{ pageTitle }}</h1>
+
+<app-loading *ngIf="loading"></app-loading>
+
+<ng-template [ngIf]="utils.isLoaded(loading)">
+  <ng-template [ngIf]="event">
+    <!-- Event form -->
+    <app-event-form [event]="event"></app-event-form>
+  </ng-template>
+
+  <!-- Error loading event -->
+  <p *ngIf="error" class="alert alert-danger">
+    <strong>Error:</strong> Event data could not be retrieved. View <a routerLink="/admin" class="alert-link">Admin Events</a>.
+  </p>
+</ng-template>
