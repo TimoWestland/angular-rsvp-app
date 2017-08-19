@@ -74,6 +74,33 @@ export class ApiService {
       .catch(this._handleError);
   }
 
+  // POST new event (admin only)
+  postEvent$(event: EventModel): Observable<EventModel> {
+    return this.http
+      .post(`${ENV.BASE_API}/event/new`, event, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .catch(this._handleError);
+  }
+
+  // PUT existing event (admin only)
+  editEvent$(id: string, event: EventModel): Observable<EventModel> {
+    return this.http
+      .put(`${ENV.BASE_API}/event/${id}`, event, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .catch(this._handleError);
+  }
+
+  // DELETE existing event and all associated RSVPs (admin only)
+  deleteEvent$(id: string): Observable<any> {
+    return this.http
+      .delete(`${ENV.BASE_API}/event/${id}`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .catch(this._handleError);
+  }
+
   // Generic error handler
   private _handleError(err: HttpErrorResponse | any) {
     const errorMsg = err.message || 'Error: Unable to complete request.';
