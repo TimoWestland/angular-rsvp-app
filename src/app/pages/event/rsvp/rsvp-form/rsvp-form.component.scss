@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  margin-top: 20px;
+}
+
+.form-guests {
+  &.row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  label,
+  .form-errors.col-12 {
+    padding-left: 0;
+    padding-right: 0;
+
+  }
+}
+
+.label-inline-group {
+  display: block;
+}

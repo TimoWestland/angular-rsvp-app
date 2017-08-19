@@ -108,7 +108,7 @@ module.exports = function(app, config) {
   });
 
   // Post a new RSVP
-  app.post('api/rsvp/new', jwtCheck, (req, res) => {
+  app.post('/api/rsvp/new', jwtCheck, (req, res) => {
     Rsvp.findOne({
       eventId: req.body.eventId,
       userId: req.body.userId
