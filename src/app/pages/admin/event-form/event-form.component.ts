@@ -25,6 +25,7 @@ import {
   stringsToDate
 } from '../../../core/forms/form-utils.factory';
 import { EventFormService } from './event-form.service';
+import { dateRangeValidator } from '../../../core/forms/date-range.validator';
 
 
 @Component({
@@ -84,7 +85,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
         this.event.title,
         this.event.location,
         this.datePipe.transform(this.event.startDatetime, 'shortDate'),
-        this.datePipe.transform(this.event.startDatetime, 'shorTime'),
+        this.datePipe.transform(this.event.startDatetime, 'shortTime'),
         this.datePipe.transform(this.event.endDatetime, 'shortDate'),
         this.datePipe.transform(this.event.endDatetime, 'shortTime'),
         this.event.viewPublic,
@@ -105,7 +106,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
         Validators.minLength(this.ef.textMin),
         Validators.maxLength(this.ef.locMax)
       ]],
-      viewPublic: [this.formEvent, [
+      viewPublic: [this.formEvent.viewPublic, [
         Validators.required
       ]],
       description: [this.formEvent.description, [
@@ -134,7 +135,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
           Validators.maxLength(this.ef.timeMax),
           Validators.pattern(TIME_REGEX)
         ]]
-      })
+      }, { validator: dateRangeValidator })
     });
     // Set local property to eventForm datesGroup control
     this.datesGroup = this.eventForm.get('datesGroup');
