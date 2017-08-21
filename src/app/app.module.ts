@@ -5,7 +5,10 @@ import {
 import { NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth/auth.service';
@@ -51,6 +54,7 @@ import { EventFormComponent } from './pages/admin/event-form/event-form.componen
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
   providers: [
