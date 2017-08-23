@@ -143,7 +143,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
     // Subscribe to form value changes
     this.formChangeSub = this.eventForm
       .valueChanges
-      .subscribe(data => this._onValueChanged(data));
+      .subscribe(this._onValueChanged);
 
     // If edit: mark fields dirty to trigger immediate
     // validation in case editing an event that is no
@@ -163,7 +163,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
     this._onValueChanged();
   }
 
-  private _onValueChanged(data?: any) {
+  private _onValueChanged() {
     if (!this.eventForm) { return; }
 
     const _setErrMsgs = (control: AbstractControl, errorsObj: any, field: string) => {
