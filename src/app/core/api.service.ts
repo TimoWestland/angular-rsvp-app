@@ -101,6 +101,15 @@ export class ApiService {
       .catch(this._handleError);
   }
 
+  // GET all events a specific user has RSVPed to (login required)
+  getUserEvents$(userId: string): Observable<EventModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}/events/${userId}`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .catch(this._handleError);
+  }
+
   // Generic error handler
   private _handleError(err: HttpErrorResponse | any) {
     const errorMsg = err.message || 'Error: Unable to complete request.';

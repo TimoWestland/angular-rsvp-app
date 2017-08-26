@@ -34,6 +34,11 @@
            routerLink="/admin/event/new"
            routerLinkActive="active">Create Event</a>
       </li>
+      <li>
+        <a *ngIf="auth.loggedIn"
+           routerLink="/my-rsvps"
+           routerLinkActive="active">My RSVPs</a>
+      </li>
     </ul>
   </nav>
 </header>

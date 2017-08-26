@@ -107,7 +107,36 @@ module.exports = function(app, config) {
     });
   });
 
-  // Post a new RSVP
+  // GET list of upcoming events user has RSVPed to
+  app.get('/api/events/:userId', jwtCheck, (req, res) => {
+    Rsvp.find({ userId: req.params.userId }, 'eventId', (err, rsvps) => {
+      const _eventIdsArr = rsvps.map(rsvp => rsvp.eventId);
+      const _rsvpEventsProjection = 'title startDatetime endDatetime';
+      let eventsArr = [];
+
+      if (err) {
+        return res.status(500).send({ message: err.message });
+      }
+      if (rsvps) {
+        Event.find(
+          { _id: { $in: _eventIdsArr }, startDatetime: { $gte: new Date() } },
+          _rsvpEventsProjection, (err, events) => {
+            if (err) {
+              return res.status(500).send({ message: err.message });
+            }
+            if (events) {
+              events.forEach(event => {
+                eventsArr.push(event);
+              });
+            }
+            res.send(eventsArr);
+          }
+        );
+      }
+    });
+  });
+
+  // POST a new RSVP
   app.post('/api/rsvp/new', jwtCheck, (req, res) => {
     Rsvp.findOne({
       eventId: req.body.eventId,
@@ -137,7 +166,7 @@ module.exports = function(app, config) {
     });
   });
 
-  // Put (edit) an existing RSVP
+  // PUT (edit) an existing RSVP
   app.put('/api/rsvp/:id', jwtCheck, (req, res) => {
     Rsvp.findById(req.params.id, (err, rsvp) => {
       if (err) {
@@ -164,7 +193,7 @@ module.exports = function(app, config) {
     });
   });
 
-  // Post a new event
+  // POST a new event
   app.post('/api/event/new', jwtCheck, adminCheck, (req, res) => {
     Event.findOne({
       title: req.body.title,
@@ -197,7 +226,7 @@ module.exports = function(app, config) {
     });
   });
 
-  // Put (edit) an existing event
+  // PUT (edit) an existing event
   app.put('/api/event/:id', jwtCheck, adminCheck, (req, res) => {
     Event.findById(req.params.id, (err, event) => {
       if (err) {
