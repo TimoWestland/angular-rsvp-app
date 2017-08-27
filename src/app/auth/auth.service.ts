@@ -5,7 +5,6 @@ import { AUTH_CONFIG } from './auth.config';
 import * as auth0 from 'auth0-js';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Rx';
-import { ENV } from './../core/env.config';
 
 @Injectable()
 export class AuthService {
