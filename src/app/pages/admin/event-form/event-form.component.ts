@@ -143,7 +143,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
     // Subscribe to form value changes
     this.formChangeSub = this.eventForm
       .valueChanges
-      .subscribe(() => this._onValueChanged);
+      .subscribe(() => this._onValueChanged());
 
     // If edit: mark fields dirty to trigger immediate
     // validation in case editing an event that is no
@@ -185,6 +185,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
           // Clear previous error message (if any)
           this.formErrors[field] = '';
           _setErrMsgs(this.eventForm.get(field), this.formErrors, field);
+          console.log(this.formErrors);
         } else {
           // Set errors for fields inside datesGroup
           const datesGroupErrors = this.formErrors['datesGroup'];
